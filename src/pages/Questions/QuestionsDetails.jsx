@@ -8,6 +8,7 @@ import downvote from '../../assets/sort-down.svg';
 import './Questions.css';
 import Avatar from '../../components/Avatar/Avatar'
 import DisplayAnswer from "./DisplayAnswer";
+import { WhatsappIcon, WhatsappShareButton } from "react-share";
 
 import { postAnswer, deleteQuestion, voteQuestion } from "../../actions/question";
 
@@ -16,62 +17,8 @@ import { postAnswer, deleteQuestion, voteQuestion } from "../../actions/question
 const QuestionsDetails = () => {
 
     const { id } = useParams()
-    //console.log(id)
     const questionsList = useSelector(state => state.questionsReducer)
-    //console.log(questionsList)
-
-    /*var questionsList = [{ 
-            _id: '1',
-            upVotes: 3,
-            downVotes: 2,
-            noOfAnswers: 2,
-            questionTitle: "What is a function?",
-            questionBody: "It meant to be",
-            questionTags: ["java", "node js", "react js", "mongo db", "express js"],
-            userPosted: "mano",
-            userId: 1,
-            askedOn: "jan 1",
-            answer: [{
-            answerBody: "Answer",
-            userAnswered: 'kumar',
-            answeredOn: "jan 2",
-            userId: 2,
-          }]
-         },{ 
-             _id: '2',
-            upVotes: 3,
-            downVotes: 2,
-            noOfAnswers: 0,
-            questionTitle: "What is a function?",
-            questionBody: "It meant to be",
-            questionTags: ["javascript", "R", "python"],
-             userPosted: "mano",
-             askedOn: "jan 1",
-             userId: 1,
-            answer: [{
-                answerBody: "Answer",
-               userAnswered: 'kumar',
-               answeredOn: "jan 2",
-               userId: 2,
-           }]
-        },{ 
-            _id: '3',
-            upVotes: 3,
-            downVotes: 2,
-            noOfAnswers: 0,
-            questionTitle: "What is a function?",
-            questionBody: "It meant to be",
-            questionTags: ["javascript", "R", "python"],
-            userPosted: "mano",
-             askedOn: "jan 1",
-           userId: 1,
-            answer: [{
-                answerBody: "Answer",
-                userAnswered: 'kumar',
-                answeredOn: "jan 2",
-                userId: 2,
-           }]
-         }]*/
+    
          
         const [Answer,setAnswer] = useState('')
         const navigate = useNavigate()
@@ -79,7 +26,10 @@ const QuestionsDetails = () => {
         const User = useSelector((state) => (state.currentUserReducer))
         const location = useLocation()
         console.log(location)
-        const url = 'http://localhost:3000'
+        const url ='https://app-stack-overflow-final.onrender.com'
+        //const url='https://stack-overflow-myapp.netlify.app'
+        //const url ='https://server-stackoverflow.onrender.com'
+        //const url = 'http://localhost:3000'
 
         const handlePostAns = (e, answerLength) => {
             e.preventDefault()
@@ -92,7 +42,8 @@ const QuestionsDetails = () => {
                 alert('Enter an answer before submitting')
              } else{
                 dispatch(postAnswer({ id, noOfAnswers : answerLength + 1, answerBody : Answer, userAnswered: User.result.name, userId: User.result._id}))
-             }
+                setAnswer("") 
+            }
             }
 
         }
@@ -144,6 +95,7 @@ const QuestionsDetails = () => {
                                           <div className="question-actions-user">
                                             <div>
                                                 <button type="button" onClick={handleShare}>Share</button>
+                                               
                                                 {
                                                     User?.result?._id === question?.userId && (
                                                     <button type="button" onClick={handleDelete}> Delete</button>
@@ -202,9 +154,6 @@ const QuestionsDetails = () => {
         </div>
     )
 }
-/*<div>
-   <h1>hhhhhh</h1> 
-</div>
-    )}*/
+
 
 export default QuestionsDetails

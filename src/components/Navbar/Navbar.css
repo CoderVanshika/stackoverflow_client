@@ -19,7 +19,7 @@
     min-width: 85%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .nav-logo{
@@ -53,7 +53,6 @@
 
 .navbar form input{
     min-width: 90%;
-    margin: 0;
     padding: 8px 10px 8px 32px;
     font-size: 13px;
     border: solid 1px #0000003e;
@@ -76,4 +75,49 @@
 
 .nav-links:hover{
     background-color: #d3e4eb;
+}
+
+
+@media screen and (max-width: 1150px) {
+    .about {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .products {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .forTeams {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .nav-logo {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .nav-logo {
+        display: block;
+    }
+
+    .navbar form {
+        display: none;
+    }
+
+    .navbar {
+        justify-content: flex-end;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .nav-logo {
+        display: none;
+    }
 }

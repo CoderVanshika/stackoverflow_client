@@ -1,17 +1,23 @@
 import React from "react";
 import {  useLocation, useNavigate } from "react-router-dom"; 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './HomeMainbar.css';
+import { useEffect } from "react";
 import QuestionList from "./QuestionList";
-
+import { fetchAllUsers } from "../../actions/users";
 
 const HomeMainbar = () => {
     const location = useLocation()
-    const user = 1;
+    //const user = 1;
+    const user = useSelector((state) => (state.currentUserReducer))
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const questionsList = useSelector(state => state.questionsReducer)
-    //console.log(questionsList)
+    const subscribersList = useSelector(state => state.paymentReducer)
+    useEffect(() => {
+        dispatch(fetchAllUsers())
+      },[])
+   
 
     /*var questionsList = [{
         _id : 1,
@@ -73,7 +79,21 @@ const HomeMainbar = () => {
             navigate('/Auth')
         }
         else{
-            navigate('/AskQuestion')
+            const getSubscribers = subscribersList.data.filter((usersubscriber) =>
+            
+            //console.log("Output :",usersubscriber.userId,"Data:",User?.result._id)
+            (usersubscriber.userId===user?.result._id))
+            //console.log("h :",getSubscribers)
+            if(getSubscribers.length!==0)
+            {
+                navigate('/AskQuestion')
+            }
+            else{
+                navigate('/PricingPlans')
+            }
+            
+           // console.log("get subscribers:", getSubscribers)
+            //navigate('/AskQuestion')
         }
     }
     return(
@@ -94,8 +114,11 @@ const HomeMainbar = () => {
                      </>
                 }
             </div>
-
+            
         </div>
+        
+            
+        
     )
 }
 

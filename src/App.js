@@ -7,6 +7,8 @@ import AllRoutes from "./AllRoutes";
 
 import { fetchAllQuestions } from "./actions/question";
 import { fetchAllUsers } from "./actions/users";
+import { fetchAllSubscribers } from "./actions/payment";
+import { fetchAllPosts } from "./actions/community";
 
 
 function App() {
@@ -16,6 +18,9 @@ function App() {
   useEffect(() => {
     dispatch(fetchAllQuestions())
     dispatch(fetchAllUsers())
+    dispatch(fetchAllSubscribers())
+    dispatch(fetchAllPosts())
+    //console.log("ff:")
   },[dispatch])
 
   return (

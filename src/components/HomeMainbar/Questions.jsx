@@ -5,11 +5,11 @@ import moment from 'moment'
 const Questions = ({question}) => {
     return(
         <div className="display-question-container">
-            <div className="display-votes-ans">
+            <div className="display-votes-ans no-votes ">
               <p>{question.upVote.length - question.downVote.length}</p>
                 <p>votes</p>
             </div>
-            <div className="display-votes-ans">
+            <div className="display-votes-ans no-ans ">
                 <p>{question.noOfAnswers}</p>
                 <p>answers</p>
             </div>

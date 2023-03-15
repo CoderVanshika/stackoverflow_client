@@ -13,6 +13,7 @@
 
 .main-bar-header h1{
     font-weight: 400;
+    text-align: center;
 }
 
 .main-bar-header .ask-btn{
@@ -94,3 +95,25 @@
    
 }
 
+
+@media screen and (max-width: 950px) {
+    .main-bar {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .no-votes{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .no-ans{
+        display: none;
+    }
+
+    .main-bar-header{
+        flex-direction: column;
+    }
+}

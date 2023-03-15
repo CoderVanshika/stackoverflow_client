@@ -8,6 +8,11 @@ import DisplayQuestion from "./pages/Questions/DisplayQuestion";
 import Tags from './pages/Tags/Tags';
 import Users from "./pages/Users/Users";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import PricingPlans from "./pages/PricingPlans/PricingPlans";
+import Community from "./pages/Community/Community";
+import FindFriends from "./pages/FindFriends/FindFriends";
+import FriendsHome from './pages/Friends/Friends'
+
 
 const AllRoutes=()=>{
     return(
@@ -20,6 +25,11 @@ const AllRoutes=()=>{
             <Route path='/Tags' element={<Tags/>}/>
             <Route path='/Users' element={<Users/>}/>
             <Route path='/Users/:id' element={<UserProfile/>}/>
+            <Route path='/PricingPlans' element={<PricingPlans/>}/>
+            <Route path='/Community' element={<Community/>}/>
+            <Route path="/Friends" element={<FriendsHome/>} />
+            <Route path='/FindFriends' element={<FindFriends/>} />
+    
 
         </Routes>
     )

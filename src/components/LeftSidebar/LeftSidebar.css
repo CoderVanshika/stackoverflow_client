@@ -1,10 +1,18 @@
 .left-sidebar{
-    width: 164px;
-    box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-    transition: box-shadow ease-in-out 0.1s, transform ease-in-out 0.1s;
+    width: 50px;
     transform: translateZ(0);
+    box-shadow: 1px 1px rgb(0,0,0,0.2);
     box-sizing: border-box;
     font-size: 13px;
+    transition: width .6s ease;
+}
+
+.left-sidebar:hover{
+    width: 164px;
+}
+
+.left-sidebar:hover .display{
+    display: block;
 }
 
 .side-nav{
@@ -12,25 +20,30 @@
     max-width: 100%;
     position: sticky;
     margin: 50px 0px;
-    padding: 20px 0px;   
+    padding: 20px 0px;
+
 }
 
-.side-nav-div{
-    padding: 10px 0px;
- }
-
 .side-nav-div div{
-   padding-left: 10px; 
+    padding: 10px;
 }
 
 .side-nav-links{
-    text-decoration: none;
-    color:#3a3a3a;
+    padding-right: 10px;
     display: flex;
-    align-items: center;
+    text-decoration: none;
+    color: #3a3a3a;
     justify-content: flex-start;
+    align-items: center;
     padding-left: 10px;
-    transition: 0.2s;
+}
+
+.find-friends {
+    display: none;
+}
+
+.display {
+    display: none;
 }
 
 .side-nav-links:hover{
@@ -38,10 +51,18 @@
 }
 
 .active{
-    font-weight: bolder;
-    color: black;
     background-color: rgb(225,225,225);
+    color: black;
+    font-weight: bolder;
     border-right: solid 3px #ef8236;
 }
 
+@media screen and (min-width: 775px) {
+    .left-sidebar{
+        width: 164px;
+    }
 
+    .display{
+        display: block;
+    }
+}

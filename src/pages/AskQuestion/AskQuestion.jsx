@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
-
 import './AskQuestion.css';
 import { askQuestion } from '../../actions/question';
+import { fetchAllSubscribers } from "../../actions/payment";
 
-
+        
 const AskQuestion = () => {
    const [questionTitle, setQuestionTitle] = useState('')
    const [questionBody, setQuestionBody] = useState('')
@@ -15,24 +15,97 @@ const AskQuestion = () => {
    const User = useSelector((state) => (state.currentUserReducer))
    const navigate = useNavigate()
 
+  
+   useEffect(function()
+   {
+    fetchAllSubscribers()
+   },[])
+
+  const subscribersList = useSelector(state => state.paymentReducer)
+
    const handleSubmit=(e)=>{
     e.preventDefault()
+    console.log('Subscribers:', subscribersList)
+    const getSubscribers = subscribersList.data.filter((usersubscriber) =>
+       //console.log("Output :",usersubscriber.userId,"Data:",User?.result._id)
+       (usersubscriber.userId===User?.result._id)
+    )
+    console.log("Get subscribers : ",getSubscribers)
+    
+    if(getSubscribers[0].noOfQuestions>=1)
+    {
+     
+        dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id, noOfQuestions:(getSubscribers[0].noOfQuestions)-1}, navigate)) 
+        navigate('/')
+        window.location.reload();
+        if(getSubscribers[0].noOfQuestions==0)
+        {
+          alert("Sorry you can't post")
+          navigate('/') 
+        }
+      }
+    else if(getSubscribers[0].noOfQuestions==0)
+      {
+        alert("Sorry, your today's validitiy of posting questions is over")
+        navigate('/')
+      }
+    else if(getSubscribers[0].noOfQuestions==-1){
+        dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id, noOfQuestions:getSubscribers[0].noOfQuestions}, navigate))
+        navigate('/')
+      }
+    else
+    { 
+      alert("Your todays limit is exhausted")
+      navigate('/')
+    }
+    window.location.reload();
+  }
+
+/*if(getSubscribers[0].noOfQuestions>0 || getSubscribers[0].noOfQuestions==-1)
+    {
+      if(getSubscribers[0].noOfQuestions==-1)
+      {
+        dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id, noOfQuestions:getSubscribers[0].noOfQuestions}, navigate)) 
+      }
+       else if(getSubscribers[0].noOfQuestions==0)
+      {
+        //dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id, noOfQuestions:getSubscribers[0].noOfQuestions}, navigate)) 
+        alert("Sorry you can't post")
+        navigate('/')
+        
+        
+      }
+      else{
+        dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id, noOfQuestions:(getSubscribers[0].noOfQuestions)-1}, navigate))
+      }
+      
+    }
+    else
+    { 
+      //if(getSubscribers[0].noOfQuestions==0)
+      //{
+        //alert("Can't post")
+      //}
+      alert("Your todays limit is exhausted")
+      navigate('/')
+    }
     //console.log({ questionTitle, questionBody, questionTags})
-    dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result._id}, navigate))
-   }
+   
+  }*/
 
    const handleEnter = (e) => {
      if(e.key === 'Enter'){
        setQuestionBody(questionBody + "\n")
      }
+    
    }
-   
 
     return(
           <div className="ask-question">
             <div className="ask-ques-container">
+            <div className="ask-question-header">
               <h1> Ask a public question</h1>
-              
+            </div>
               <form onSubmit={handleSubmit}>
                 <div className="ask-form-container">
                     <label htmlFor="ask-ques-title">

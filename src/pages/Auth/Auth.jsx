@@ -4,23 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 import icon from '../../assets/icon.png';
 import AboutAuth from './AboutAuth';
-import { signup, login } from "../../actions/auth";
-
+import { signup, login  } from "../../actions/auth";
+import Chat from "../../Chat";
 
 const Auth = () => {
     const [isSignup,setIsSignup] = useState(false)
+    const [isLogin,setIsLogin] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [otpForm,setOtpForm] = useState(false)
+    const [enterOtp, setEnterOtp] = useState('')
+    const [generatedOtp,setGeneratedOtp] = useState('')
+    const [openChatbot,setOpenChatbot]=useState(false)
+
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleSwitch = () => {
+        
         setIsSignup(!isSignup)
     }
 
     const handleSubmit = (e) => {
+       
         e.preventDefault()
         if(!email && !password){
             alert("Enter email and password")
@@ -30,14 +38,32 @@ const Auth = () => {
                 alert("Enter a name to continue")
             }
             dispatch(signup({ name, email, password },navigate))
+            
         } else{
-            dispatch(login({ email, password }, navigate))
-        }
-        
-        //console.log({name, email, password})
+             setOtpForm(true)
+             const otp = parseInt(Math.random()*8999)+1000
+            alert("Your otp for login is : " + otp)
+            setGeneratedOtp(otp)
+        }  
     }
     
-
+    const verifyOtp=()=>{
+        alert("Input OTP : "+ enterOtp +" and Original OTP : "+ generatedOtp)
+        if(enterOtp == generatedOtp)
+        {
+            alert("OTP matched")
+            dispatch(login({ email, password }, navigate))
+            setIsLogin(true)
+            setOpenChatbot(true)
+        }
+        else
+        {
+            alert("Incorrect OTP as OTP not matched")
+            navigate('/')
+            alert("You are not login")
+        }
+    }
+    
     return(
     <section class='auth-section'>
         {
@@ -92,14 +118,34 @@ const Auth = () => {
                         </p>
                     )
                 }
+                  {
+                    otpForm && (
+                        <label htmlFor='name'>
+                            <h4>Enter OTP</h4>
+                            <input type="number" id='enterotp' name='enterotp' style={{width:"30%",marginTop:12}}onChange={(e)=>{setEnterOtp(e.target.value)}}/>
+                        </label>
+                         
+                    )
+                   
+                }
+                {
+                    otpForm && (
+                        <button type='button' className="handle-switch-btn" onClick={verifyOtp}> VERIFY</button>
+                    )
+                    
+                }
             </form>
             <p>
                 {isSignup ? 'Already have an account?' : "Don't have an account ?"}
                 <button type='button' className="handle-switch-btn" onClick={handleSwitch}> {isSignup ? "Log in " : "Sign up " }</button>
             </p>
-        </div>
+          
+       </div>
+       {openChatbot && <Chat/> }  
+       
 
     </section>
+   
     )
 }
 
