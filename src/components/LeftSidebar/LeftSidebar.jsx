@@ -18,6 +18,12 @@ const LeftSidebar=()=>{
              <p className="display">Home</p>
            </NavLink>
 
+           <NavLink to="/PricingPlans" className="side-nav-links" activeclass="active">
+              <FontAwesomeIcon style={{ padding: "1.2em 10px 1em 0px" }}
+               icon={faMoneyBill}/>
+                <p className="display">Subscriptions</p>
+           </NavLink>
+
            <NavLink to="/Community" className="side-nav-links" activeclass="active">
               <FontAwesomeIcon style={{ padding: "1.2em 10px 1em 0px" }}
                icon={faUserGroup}/>

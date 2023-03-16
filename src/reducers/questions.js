@@ -1,6 +1,7 @@
 const questionsReducer = (state= {data : null}, action) => {
     switch(action.type){
         case "POST_QUESTION" :
+            console.log("redux state:", ...state)
               return { ...state }
 
          case "POST_ANSWER" :

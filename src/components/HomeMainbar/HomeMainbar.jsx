@@ -91,7 +91,7 @@ const HomeMainbar = () => {
             else{
                 navigate('/PricingPlans')
             }
-            
+            //navigate('/AskQuestion')
            // console.log("get subscribers:", getSubscribers)
             //navigate('/AskQuestion')
         }

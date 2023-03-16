@@ -9,6 +9,7 @@ import { fetchAllQuestions } from "./actions/question";
 import { fetchAllUsers } from "./actions/users";
 import { fetchAllSubscribers } from "./actions/payment";
 import { fetchAllPosts } from "./actions/community";
+import Chat from "./Chat";
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
       <Router>
      <Navbar/>
      <AllRoutes/>
-     
+     <Chat/>
      </Router>
     </div>
   );

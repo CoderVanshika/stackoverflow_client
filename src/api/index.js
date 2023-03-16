@@ -3,8 +3,10 @@ import axios from 'axios';
 
 //const API = axios.create({ baseURL:'https://server-stackoverflow.onrender.com'})
 //const API = axios.create({ baseURL:'http://localhost:5000'})
+//https://internship-satck-overflow.onrender.com/
+const API = axios.create({ baseURL:'https://internship-satck-overflow.onrender.com'})
 
-const API = axios.create({ baseURL:'https://app-stack-overflow-final.onrender.com'})
+//const API = axios.create({ baseURL:'https://app-stack-overflow-final.onrender.com'})
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('Profile')){
